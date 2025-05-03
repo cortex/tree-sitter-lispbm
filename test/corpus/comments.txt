@@ -9,6 +9,6 @@ Commments
 -----
 (program
     (comment)
-    (application (symbol) (string)) (comment)
-    (application (symbol) (comment) (string)) (comment)
-    (application (symbol) (string)))
+    (application (symbol) (string (string_fragment))) (comment)
+    (application (symbol) (comment) (string (string_fragment))) (comment)
+    (application (symbol) (string (string_fragment))))

@@ -49,6 +49,7 @@ module.exports = grammar({
         $.symbol,
         $.number,
         prec(1, $.invalid_number),
+        $.character,
         $.string,
         $.byte_array,
         $.constant_symbol,
@@ -106,9 +107,44 @@ module.exports = grammar({
         "_",
         "?",
       ),
-
-    string: ($) => seq('"', repeat(choice(/[^"]/, '\\"')), '"'),
-    byte_array: ($) => seq("[", repeat($.number), "]"),
+  
+    // Strings
+    // The following escape sequences are valid:
+    // \0 -> 0   ; NULL
+    // \a -> 7   ; control-g
+    // \b -> 8   ; backspace, BS
+    // \t -> 9   ; tab, TAB
+    // \n -> 10  ; newline
+    // \v -> 11  ; vertical tab
+    // \f -> 12  ; formfeed character
+    // \r -> 13  ; carriage return, RET
+    // \e -> 27  ; escape character, ESC
+    // \s -> 32  ; space character, SPC
+    // \" -> 34  ; double quote
+    // \\ -> 92  ; backslash character, \
+    // \d -> 127 ; delete character, DEL
+    string: ($) => seq('"', repeat(choice($.string_fragment, $.escape_sequence, $.invalid_escape_sequence)), '"'),
+    string_fragment: ($) => /[^"\\]+/,
+    
+    // Character literals
+    character: ($) => seq(
+      "\\#",
+      choice(
+        $.character_fragment,
+        $.invalid_character_fragment,
+        $.escape_sequence,
+        $.invalid_escape_sequence,
+      )
+    ),
+    character_fragment: ($) => token.immediate(/\p{ASCII}/u),
+    // Non-ascii character
+    invalid_character_fragment: ($) => token.immediate(/\P{ASCII}/u),
+    
+    // spell-checker: disable-next-line
+    escape_sequence: ($) => token.immediate(/\\[abtnvfresd0"\\]/),
+    invalid_escape_sequence: ($) => token.immediate(/\\(.|\n)/),
+    
+    byte_array: ($) => seq("[", repeat(choice($.number, $.character)), "]"),
 
     progn: ($) =>
       choice(

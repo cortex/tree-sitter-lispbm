@@ -15,7 +15,7 @@ Functions
         args: (arglist (symbol))
         body: (application
             function: (symbol) 
-            arg: (string)
+            arg: (string (string_fragment))
             arg: (symbol)))
     (function
         args: (arglist (symbol))

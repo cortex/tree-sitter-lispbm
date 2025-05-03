@@ -84,12 +84,12 @@ Loops
         condition: (constant_symbol)
         body: (constant_symbol))
     (loopwhile_thread
-        args: (string)
+        args: (string (string_fragment))
         condition: (constant_symbol)
         body: (constant_symbol))
     (loopwhile_thread
         args: (loopwhile_thread_args
-            (string)
+            (string (string_fragment))
             (number))
         condition: (constant_symbol)
         body: (constant_symbol)))

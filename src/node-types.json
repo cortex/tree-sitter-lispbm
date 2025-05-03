@@ -16,6 +16,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -131,6 +135,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -287,6 +295,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -418,7 +430,38 @@
       "required": false,
       "types": [
         {
+          "type": "character",
+          "named": true
+        },
+        {
           "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "character",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "character_fragment",
+          "named": true
+        },
+        {
+          "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "invalid_character_fragment",
+          "named": true
+        },
+        {
+          "type": "invalid_escape_sequence",
           "named": true
         }
       ]
@@ -448,6 +491,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -566,6 +613,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -715,6 +766,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -871,6 +926,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -1016,6 +1075,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -1182,6 +1245,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -1326,6 +1393,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -1441,6 +1512,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -1578,6 +1653,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -1693,6 +1772,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -1834,6 +1917,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -1949,6 +2036,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -2073,6 +2164,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -2214,6 +2309,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -2338,6 +2437,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -2453,6 +2556,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -2594,6 +2701,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -2718,6 +2829,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -2833,6 +2948,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -2988,6 +3107,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -3103,6 +3226,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -3269,6 +3396,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -3410,6 +3541,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -3577,6 +3712,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -3706,6 +3845,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "closure",
             "named": true
           },
@@ -3820,6 +3963,10 @@
             "named": true
           },
           {
+            "type": "character",
+            "named": true
+          },
+          {
             "type": "constant_symbol",
             "named": true
           },
@@ -3863,6 +4010,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -4022,6 +4173,10 @@
           "named": true
         },
         {
+          "type": "character",
+          "named": true
+        },
+        {
           "type": "constant_symbol",
           "named": true
         },
@@ -4081,6 +4236,10 @@
         },
         {
           "type": "byte_array",
+          "named": true
+        },
+        {
+          "type": "character",
           "named": true
         },
         {
@@ -4205,6 +4364,10 @@
         },
         {
           "type": "byte_array",
+          "named": true
+        },
+        {
+          "type": "character",
           "named": true
         },
         {
@@ -4335,6 +4498,10 @@
           "named": true
         },
         {
+          "type": "character",
+          "named": true
+        },
+        {
           "type": "constant_symbol",
           "named": true
         },
@@ -4379,6 +4546,10 @@
       "types": [
         {
           "type": "byte_array",
+          "named": true
+        },
+        {
+          "type": "character",
           "named": true
         },
         {
@@ -4440,6 +4611,10 @@
           "named": true
         },
         {
+          "type": "character",
+          "named": true
+        },
+        {
           "type": "constant_symbol",
           "named": true
         },
@@ -4476,6 +4651,10 @@
       "types": [
         {
           "type": "byte_array",
+          "named": true
+        },
+        {
+          "type": "character",
           "named": true
         },
         {
@@ -4597,6 +4776,10 @@
         },
         {
           "type": "byte_array",
+          "named": true
+        },
+        {
+          "type": "character",
           "named": true
         },
         {
@@ -4723,6 +4906,10 @@
           "named": true
         },
         {
+          "type": "character",
+          "named": true
+        },
+        {
           "type": "closure",
           "named": true
         },
@@ -4846,6 +5033,10 @@
           "named": true
         },
         {
+          "type": "character",
+          "named": true
+        },
+        {
           "type": "closure",
           "named": true
         },
@@ -4955,7 +5146,25 @@
   {
     "type": "string",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "invalid_escape_sequence",
+          "named": true
+        },
+        {
+          "type": "string_fragment",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "symbol",
@@ -5000,6 +5209,10 @@
           },
           {
             "type": "byte_array",
+            "named": true
+          },
+          {
+            "type": "character",
             "named": true
           },
           {
@@ -5148,7 +5361,7 @@
     "named": false
   },
   {
-    "type": "\\\"",
+    "type": "\\#",
     "named": false
   },
   {
@@ -5166,6 +5379,10 @@
   {
     "type": "and",
     "named": false
+  },
+  {
+    "type": "character_fragment",
+    "named": true
   },
   {
     "type": "closure",
@@ -5201,6 +5418,10 @@
     "named": true
   },
   {
+    "type": "escape_sequence",
+    "named": true
+  },
+  {
     "type": "false",
     "named": false
   },
@@ -5215,6 +5436,14 @@
   {
     "type": "import",
     "named": false
+  },
+  {
+    "type": "invalid_character_fragment",
+    "named": true
+  },
+  {
+    "type": "invalid_escape_sequence",
+    "named": true
   },
   {
     "type": "lambda",
@@ -5283,6 +5512,10 @@
   {
     "type": "setq",
     "named": false
+  },
+  {
+    "type": "string_fragment",
+    "named": true
   },
   {
     "type": "t",

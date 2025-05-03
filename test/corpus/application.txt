@@ -12,7 +12,7 @@ Application
         arg: (number))
     (application
         function: (symbol)
-        arg: (string))
+        arg: (string (string_fragment)))
     (application
         function: (application
             function: (symbol))))

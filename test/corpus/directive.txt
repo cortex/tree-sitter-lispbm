@@ -13,5 +13,5 @@ Directive
     (directive)
     (directive)
     (comment)
-    (application (symbol) (string))
-    (application (symbol) (string)))
+    (application (symbol) (string (string_fragment)))
+    (application (symbol) (string (string_fragment))))

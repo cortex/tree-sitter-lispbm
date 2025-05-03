@@ -7,7 +7,7 @@ Simple program
 (program
     (application
         (symbol)
-        (string)
+        (string (string_fragment))
         (application
             (symbol)
             (constant_symbol)
