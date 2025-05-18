@@ -11,6 +11,14 @@
 module.exports = grammar({
   name: "lispbm",
   extras: ($) => [/(\s|\f)/, $.comment],
+  supertypes: ($) => [
+    $._atom,
+    $._expression,
+    $._callable,
+    $._matcher,
+    $._pattern,
+    $._loop,
+  ],
   rules: {
     program: ($) => repeat(choice($._expression, $.comment, $.directive)),
     _expression: ($) =>
@@ -18,11 +26,7 @@ module.exports = grammar({
         $._atom,
         $.application,
         $.definition,
-        $.function,
-        $.closure,
-        $.function_definition,
-        $.macro,
-        $.macro_definition,
+        $._callable,
         $.special_form,
         $.progn,
         // Note that we define a `var` expression to be valid anywhere, not just
@@ -32,15 +36,8 @@ module.exports = grammar({
         $.let,
         $.quasiquote,
         $.quote,
-        $.match,
-        $.recv,
-        $.recv_timeout,
-        $.loop,
-        $.loopfor,
-        $.loopwhile,
-        $.looprange,
-        $.loopforeach,
-        $.loopwhile_thread,
+        $._matcher,
+        $._loop,
       ),
     comment: ($) => token(prec(-1, /;.*/)),
     directive: ($) => token(choice("@const-start", "@const-end")),
@@ -163,6 +160,13 @@ module.exports = grammar({
     destructure_list: ($) => seq("(", repeat($._destructure_pattern), ")"),
 
     // Functions
+    _callable: ($) => choice(
+      $.function,
+      $.closure,
+      $.function_definition,
+      $.macro,
+      $.macro_definition
+    ),
     function: ($) =>
       seq(
         "(",
@@ -221,6 +225,11 @@ module.exports = grammar({
       ),
 
     // Match, recv, and recv-to
+    _matcher: ($) => choice(
+      $.match,
+      $.recv,
+      $.recv_timeout,
+    ),
     match: ($) =>
       seq(
         "(",
@@ -240,7 +249,7 @@ module.exports = grammar({
       seq(
         "(",
         field("keyword", "recv-to"),
-        field("timeout", $.number),
+        field("value", $.number),
         field("arm", repeat($.pattern_arm)),
         ")",
       ),
@@ -269,6 +278,14 @@ module.exports = grammar({
     wildcard: ($) => prec(1, "_"),
 
     // Loops
+    _loop: ($) => choice(
+      $.loop,
+      $.loopfor,
+      $.loopwhile,
+      $.looprange,
+      $.loopforeach,
+      $.loopwhile_thread
+    ),
     loop: ($) =>
       seq(
         "(",

@@ -39,23 +39,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "function"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "closure"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "function_definition"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "macro"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "macro_definition"
+          "name": "_callable"
         },
         {
           "type": "SYMBOL",
@@ -83,39 +67,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "match"
+          "name": "_matcher"
         },
         {
           "type": "SYMBOL",
-          "name": "recv"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "recv_timeout"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "loop"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "loopfor"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "loopwhile"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "looprange"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "loopforeach"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "loopwhile_thread"
+          "name": "_loop"
         }
       ]
     },
@@ -862,6 +818,31 @@
         }
       ]
     },
+    "_callable": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "function"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "closure"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "function_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "macro"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "macro_definition"
+        }
+      ]
+    },
     "function": {
       "type": "SEQ",
       "members": [
@@ -1151,6 +1132,23 @@
         }
       ]
     },
+    "_matcher": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "match"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "recv"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "recv_timeout"
+        }
+      ]
+    },
     "match": {
       "type": "SEQ",
       "members": [
@@ -1240,7 +1238,7 @@
         },
         {
           "type": "FIELD",
-          "name": "timeout",
+          "name": "value",
           "content": {
             "type": "SYMBOL",
             "name": "number"
@@ -1405,6 +1403,35 @@
         "type": "STRING",
         "value": "_"
       }
+    },
+    "_loop": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "loop"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "loopfor"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "loopwhile"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "looprange"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "loopforeach"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "loopwhile_thread"
+        }
+      ]
     },
     "loop": {
       "type": "SEQ",
@@ -1774,6 +1801,13 @@
   "precedences": [],
   "externals": [],
   "inline": [],
-  "supertypes": [],
+  "supertypes": [
+    "_atom",
+    "_expression",
+    "_callable",
+    "_matcher",
+    "_pattern",
+    "_loop"
+  ],
   "reserved": {}
 }

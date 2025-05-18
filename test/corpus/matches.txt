@@ -59,7 +59,7 @@ Matches
                 arg: (number)
                 arg: (number))))
     (recv_timeout
-        timeout: (number)
+        value: (number)
         arm: (pattern_arm
             pattern: (symbol)
             value: (constant_symbol))
