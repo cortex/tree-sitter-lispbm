@@ -219,14 +219,6 @@
           "name": "number"
         },
         {
-          "type": "PREC",
-          "value": 1,
-          "content": {
-            "type": "SYMBOL",
-            "name": "invalid_number"
-          }
-        },
-        {
           "type": "SYMBOL",
           "name": "character"
         },
@@ -431,8 +423,22 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "_int_qualifier"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "int_qualifier"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "float_qualifier"
+                    },
+                    "named": true,
+                    "value": "invalid_qualifier"
+                  }
+                ]
               },
               {
                 "type": "BLANK"
@@ -442,7 +448,46 @@
         }
       ]
     },
-    "_int_qualifier": {
+    "_float": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "-?\\d+\\.\\d+"
+        },
+        {
+          "type": "FIELD",
+          "name": "qualifier",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "float_qualifier"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "int_qualifier"
+                    },
+                    "named": true,
+                    "value": "invalid_qualifier"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "int_qualifier": {
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "CHOICE",
@@ -478,32 +523,7 @@
         ]
       }
     },
-    "_float": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": "-?\\d+\\.\\d+"
-        },
-        {
-          "type": "FIELD",
-          "name": "qualifier",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_float_qualifier"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "_float_qualifier": {
+    "float_qualifier": {
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "CHOICE",
@@ -519,44 +539,9 @@
         ]
       }
     },
-    "invalid_number": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "-?\\d+"
-            },
-            {
-              "type": "FIELD",
-              "name": "qualifier",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_float_qualifier"
-              }
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "-?\\d+\\.\\d+"
-            },
-            {
-              "type": "FIELD",
-              "name": "qualifier",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_int_qualifier"
-              }
-            }
-          ]
-        }
-      ]
+    "invalid_qualifier": {
+      "type": "STRING",
+      "value": ""
     },
     "symbol": {
       "type": "CHOICE",

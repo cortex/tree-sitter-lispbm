@@ -24,15 +24,24 @@ Numeric types
     (number)
     (number)
     (number)
-    (number)
-    (number)
-    (number)
-    (number)
-    (number)
-    (number)
-    (number)
-    (invalid_number)
-    (invalid_number)
+    (number
+        qualifier: (int_qualifier))
+    (number
+        qualifier: (int_qualifier))
+    (number
+        qualifier: (int_qualifier))
+    (number
+        qualifier: (int_qualifier))
+    (number
+        qualifier: (int_qualifier))
+    (number
+        qualifier: (float_qualifier))
+    (number
+        qualifier: (float_qualifier))
+    (number
+        qualifier: (invalid_qualifier))
+    (number
+        qualifier: (invalid_qualifier))
     (number) (symbol)
     (number) (symbol)
     (number) (symbol))
