@@ -413,8 +413,51 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "-?\\d+"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "\\d+"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "0x[\\da-fA-F]+"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "operator",
+                  "content": {
+                    "type": "STRING",
+                    "value": "-"
+                  }
+                },
+                {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "PATTERN",
+                        "value": "\\d+"
+                      },
+                      {
+                        "type": "PATTERN",
+                        "value": "0x[\\da-fA-F]+"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "FIELD",
@@ -452,8 +495,33 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "-?\\d+\\.\\d+"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "\\d+\\.\\d+"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "operator",
+                  "content": {
+                    "type": "STRING",
+                    "value": "-"
+                  }
+                },
+                {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "\\d+\\.\\d+"
+                  }
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "FIELD",
@@ -552,7 +620,11 @@
         },
         {
           "type": "PATTERN",
-          "value": "-([a-zA-Z+\\/=<>!?_][a-zA-Z0-9+\\-\\/=<>!?_]{0,254})?"
+          "value": "-[a-zA-Z+\\/=<>!?_][a-zA-Z0-9+\\-\\/=<>!?_]{0,254}"
+        },
+        {
+          "type": "STRING",
+          "value": "-"
         },
         {
           "type": "STRING",

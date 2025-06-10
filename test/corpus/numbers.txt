@@ -3,6 +3,8 @@ Numeric types
 =========
 1
 -1
+0xab1
+-0xab1
 1.0
 -1.0
 1b
@@ -10,9 +12,15 @@ Numeric types
 1u
 1i32
 1u32
+0x1b
+0x1i
+0x1u
+0x1i32
+0x1u32
 1.0f32
 1.0f64
 1f32
+0x1f32
 1.0i32
 1.0f65
 -1.0hello
@@ -24,8 +32,19 @@ Numeric types
     (number)
     (number)
     (number)
+    (number)
+    (number)
     (number
         qualifier: (int_qualifier))
+    (number
+        qualifier: (int_qualifier))
+    (number
+        qualifier: (int_qualifier))
+    (number
+        qualifier: (int_qualifier))
+    (number
+        qualifier: (int_qualifier))
+    (number)
     (number
         qualifier: (int_qualifier))
     (number
@@ -40,6 +59,7 @@ Numeric types
         qualifier: (float_qualifier))
     (number
         qualifier: (invalid_qualifier))
+    (number)
     (number
         qualifier: (invalid_qualifier))
     (number) (symbol)

@@ -102,21 +102,41 @@ module.exports = grammar({
     // Numbers
 
     number: ($) => choice($._int, $._float),
-    _int: ($) => seq(
-      /-?\d+/,
-      field("qualifier", optional(choice(
-        $.int_qualifier,
-        alias($.float_qualifier, $.invalid_qualifier),
-      ))),
-    ),
-    _float: ($) =>
-      seq(
-        /-?\d+\.\d+/,
+    _int: ($) => {
+      const digits = choice(
+        /\d+/,
+        /0x[\da-fA-F]+/,
+      );
+      return seq(
+        choice(
+          digits,
+          seq(
+            field("operator", "-"),
+            token.immediate(digits)
+          ),
+        ),
         field("qualifier", optional(choice(
-        $.float_qualifier,
-        alias($.int_qualifier, $.invalid_qualifier),
-      )))
-      ),
+          $.int_qualifier,
+          alias($.float_qualifier, $.invalid_qualifier)
+        ))),
+      )
+    },
+    _float: ($) => {
+      const digits = /\d+\.\d+/;
+      return seq(
+        choice(
+          digits,
+          seq(
+            field("operator", "-"),
+            token.immediate(digits),
+          ),
+        ),
+        field("qualifier", optional(choice(
+          $.float_qualifier,
+          alias($.int_qualifier, $.invalid_qualifier),
+        )),
+      ))
+    },
     int_qualifier: ($) =>
       token.immediate(choice("b", "i", "u", "i32", "u32", "i64", "u64")),
     float_qualifier: ($) => token.immediate(choice("f32", "f64")),
@@ -137,7 +157,8 @@ module.exports = grammar({
     symbol: ($) =>
       choice(
         /[a-zA-Z+\/*=<>#!][a-zA-Z0-9+\-\/=<>!?_]{0,255}/,
-        /-([a-zA-Z+\/=<>!?_][a-zA-Z0-9+\-\/=<>!?_]{0,254})?/,
+        /-[a-zA-Z+\/=<>!?_][a-zA-Z0-9+\-\/=<>!?_]{0,254}/,
+        "-",
         "_",
         "?",
       ),
