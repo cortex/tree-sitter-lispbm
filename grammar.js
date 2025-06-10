@@ -45,7 +45,6 @@ module.exports = grammar({
       choice(
         $.symbol,
         $.number,
-        prec(1, $.invalid_number),
         $.character,
         $.string,
         $.byte_array,
@@ -90,21 +89,51 @@ module.exports = grammar({
     // Numbers
 
     number: ($) => choice($._int, $._float),
-    _int: ($) => seq(/-?\d+/, field("qualifier", optional($._int_qualifier))),
-    _int_qualifier: ($) =>
+    _int: ($) => {
+      const digits = choice(
+        /\d+/,
+        /0x[\da-fA-F]+/,
+      );
+      return seq(
+        choice(
+          digits,
+          seq(
+            field("operator", "-"),
+            token.immediate(digits)
+          ),
+        ),
+        field("qualifier", optional(choice(
+          $.int_qualifier,
+          alias($.float_qualifier, $.invalid_qualifier)
+        ))),
+      )
+    },
+    _float: ($) => {
+      const digits = /\d+\.\d+/;
+      return seq(
+        choice(
+          digits,
+          seq(
+            field("operator", "-"),
+            token.immediate(digits),
+          ),
+        ),
+        field("qualifier", optional(choice(
+          $.float_qualifier,
+          alias($.int_qualifier, $.invalid_qualifier),
+        )),
+      ))
+    },
+    int_qualifier: ($) =>
       token.immediate(choice("b", "i", "u", "i32", "u32", "i64", "u64")),
-    _float: ($) =>
-      seq(/-?\d+\.\d+/, field("qualifier", optional($._float_qualifier))),
-    _float_qualifier: ($) => token.immediate(choice("f32", "f64")),
+    float_qualifier: ($) => token.immediate(choice("f32", "f64")),
     // An integer or float literal followed by the opposite type qualifier is a
     // read error in LBM. Since we can't intentionally reject this at the parser
     // level (?) we instead create this new node that consumers can match
     // against.
-    invalid_number: ($) =>
-      choice(
-        seq(/-?\d+/, field("qualifier", $._float_qualifier)),
-        seq(/-?\d+\.\d+/, field("qualifier", $._int_qualifier)),
-      ),
+    // We alias the normal qualifiers with this name so the node's content
+    // doesn't matter.
+    invalid_qualifier: ($) => "",
 
     // Symbols
     // 1. The first character is a one of 'a' - 'z' or 'A' - 'Z' or '+-/=<>#!'.
@@ -115,7 +144,8 @@ module.exports = grammar({
     symbol: ($) =>
       choice(
         /[a-zA-Z+\/*=<>#!][a-zA-Z0-9+\-\/=<>!?_]{0,255}/,
-        /-([a-zA-Z+\/=<>!?_][a-zA-Z0-9+\-\/=<>!?_]{0,254})?/,
+        /-[a-zA-Z+\/=<>!?_][a-zA-Z0-9+\-\/=<>!?_]{0,254}/,
+        "-",
         "_",
         "?",
       ),

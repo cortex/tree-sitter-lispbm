@@ -35,14 +35,12 @@ Loops
             arg: (number))
         body: (progn
             (special_form
-                special: (special)
                 (symbol)
                 (application
                     function: (symbol)
                     arg: (symbol)
                     arg: (symbol)))
             (special_form
-                special: (special)
                 (symbol)
                 (application
                     function: (symbol)

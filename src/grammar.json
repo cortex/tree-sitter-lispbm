@@ -114,14 +114,6 @@
           "name": "number"
         },
         {
-          "type": "PREC",
-          "value": 1,
-          "content": {
-            "type": "SYMBOL",
-            "name": "invalid_number"
-          }
-        },
-        {
           "type": "SYMBOL",
           "name": "character"
         },
@@ -312,8 +304,51 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "-?\\d+"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "\\d+"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "0x[\\da-fA-F]+"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "operator",
+                  "content": {
+                    "type": "STRING",
+                    "value": "-"
+                  }
+                },
+                {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "PATTERN",
+                        "value": "\\d+"
+                      },
+                      {
+                        "type": "PATTERN",
+                        "value": "0x[\\da-fA-F]+"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "FIELD",
@@ -322,8 +357,22 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "_int_qualifier"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "int_qualifier"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "float_qualifier"
+                    },
+                    "named": true,
+                    "value": "invalid_qualifier"
+                  }
+                ]
               },
               {
                 "type": "BLANK"
@@ -333,7 +382,71 @@
         }
       ]
     },
-    "_int_qualifier": {
+    "_float": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "\\d+\\.\\d+"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "operator",
+                  "content": {
+                    "type": "STRING",
+                    "value": "-"
+                  }
+                },
+                {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "\\d+\\.\\d+"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "qualifier",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "float_qualifier"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "int_qualifier"
+                    },
+                    "named": true,
+                    "value": "invalid_qualifier"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "int_qualifier": {
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "CHOICE",
@@ -369,32 +482,7 @@
         ]
       }
     },
-    "_float": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": "-?\\d+\\.\\d+"
-        },
-        {
-          "type": "FIELD",
-          "name": "qualifier",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_float_qualifier"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "_float_qualifier": {
+    "float_qualifier": {
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "CHOICE",
@@ -410,44 +498,9 @@
         ]
       }
     },
-    "invalid_number": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "-?\\d+"
-            },
-            {
-              "type": "FIELD",
-              "name": "qualifier",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_float_qualifier"
-              }
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "-?\\d+\\.\\d+"
-            },
-            {
-              "type": "FIELD",
-              "name": "qualifier",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_int_qualifier"
-              }
-            }
-          ]
-        }
-      ]
+    "invalid_qualifier": {
+      "type": "STRING",
+      "value": ""
     },
     "symbol": {
       "type": "CHOICE",
@@ -458,7 +511,11 @@
         },
         {
           "type": "PATTERN",
-          "value": "-([a-zA-Z+\\/=<>!?_][a-zA-Z0-9+\\-\\/=<>!?_]{0,254})?"
+          "value": "-[a-zA-Z+\\/=<>!?_][a-zA-Z0-9+\\-\\/=<>!?_]{0,254}"
+        },
+        {
+          "type": "STRING",
+          "value": "-"
         },
         {
           "type": "STRING",

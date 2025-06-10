@@ -16,10 +16,6 @@
         "named": true
       },
       {
-        "type": "invalid_number",
-        "named": true
-      },
-      {
         "type": "number",
         "named": true
       },
@@ -516,11 +512,6 @@
     }
   },
   {
-    "type": "invalid_number",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "let",
     "named": true,
     "fields": {
@@ -1000,7 +991,36 @@
   {
     "type": "number",
     "named": true,
-    "fields": {}
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "-",
+            "named": false
+          }
+        ]
+      },
+      "qualifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "float_qualifier",
+            "named": true
+          },
+          {
+            "type": "int_qualifier",
+            "named": true
+          },
+          {
+            "type": "invalid_qualifier",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "pattern_arm",
@@ -1498,6 +1518,10 @@
     "named": false
   },
   {
+    "type": "-",
+    "named": false
+  },
+  {
     "type": "?",
     "named": false
   },
@@ -1587,6 +1611,10 @@
     "named": false
   },
   {
+    "type": "float_qualifier",
+    "named": true
+  },
+  {
     "type": "fn",
     "named": false
   },
@@ -1599,11 +1627,19 @@
     "named": false
   },
   {
+    "type": "int_qualifier",
+    "named": true
+  },
+  {
     "type": "invalid_character_fragment",
     "named": true
   },
   {
     "type": "invalid_escape_sequence",
+    "named": true
+  },
+  {
+    "type": "invalid_qualifier",
     "named": true
   },
   {
