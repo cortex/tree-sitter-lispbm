@@ -24,6 +24,7 @@ module.exports = grammar({
     _expression: ($) =>
       choice(
         $._atom,
+        $.pair,
         $.application,
         $.definition,
         $._callable,
@@ -40,6 +41,7 @@ module.exports = grammar({
         $._loop,
       ),
     comment: ($) => token(prec(-1, /;.*/)),
+    pair: ($) => seq("(", $._expression, ".", $._expression, ")"),
     directive: ($) => token(choice("@const-start", "@const-end")),
     _atom: ($) =>
       choice(

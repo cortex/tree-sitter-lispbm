@@ -92,6 +92,10 @@
         "named": true
       },
       {
+        "type": "pair",
+        "named": true
+      },
+      {
         "type": "progn",
         "named": true
       },
@@ -1003,6 +1007,21 @@
     "fields": {}
   },
   {
+    "type": "pair",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "pattern_arm",
     "named": true,
     "fields": {
@@ -1495,6 +1514,10 @@
   },
   {
     "type": ",@",
+    "named": false
+  },
+  {
+    "type": ".",
     "named": false
   },
   {
