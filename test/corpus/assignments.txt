@@ -9,18 +9,22 @@ Assignments
 (let ((a 1)
       (b 2)) nil)
 (let (((a b) '(1 2))) nil)
+(var (a . b) data)
 ---------
 
 (program
     (progn
         (var
             name: (destructure_list (symbol) (symbol))
-            value: (quote (quoted_list (number) (number)))))
+            value: (quote (list (number) (number)))))
     (var
         name: (destructure_list
             (symbol)
             (destructure_list (symbol)))
-        value: (quote (quoted_list (number) (quoted_list (number)))))
+        value: 
+            (quote (list
+                (number) 
+                (list (number)))))
     (let
         bindings: (bindings)
         body: (constant_symbol))
@@ -39,7 +43,8 @@ Assignments
                 name: (destructure_list
                     (symbol)
                     (symbol))
-                value: (quote (quoted_list
+                value: (quote (list
                     (number)
                     (number)))))
-        body: (constant_symbol)))
+        body: (constant_symbol))
+        (var name: (pair (symbol) (symbol)) value: (symbol)))

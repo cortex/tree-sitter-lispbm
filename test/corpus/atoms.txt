@@ -17,6 +17,7 @@ hello
 [\#\0 \#\a \#\b \#\t \#\n \#\v \#\f \#\r \#\e \#\s \#\" \#\\ \#\d]
 \#\I
 \#\ö
+()
 -------
 (program
     (number)
@@ -61,4 +62,5 @@ hello
         (character (escape_sequence)))
     (character (invalid_escape_sequence))
     (character (invalid_escape_sequence))
+    (constant_symbol)
     )

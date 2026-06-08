@@ -71,7 +71,7 @@ Loops
         body: (symbol))
     (loopforeach
         iterator: (symbol)
-        list: (quote (quoted_list
+        list: (quote (list
             (number)
             (number)
             (number)))

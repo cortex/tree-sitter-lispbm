@@ -1,6 +1,7 @@
-=========
-Matches
-=========
+=============================
+Matches and pattern matching
+=============================
+
 (match 'value
     (value nil)
     ((? other) (list? other) 'list)
@@ -19,7 +20,12 @@ Matches
 (match 'ugly-but-technically-legal
     (? true)
     (?? 2))
----------
+
+(match result
+    ((err . (? error)) false)
+    ((ok . _) true))
+    
+----------------------------
 (program
     (match
         value: (quote (symbol))
@@ -37,7 +43,7 @@ Matches
             pattern: (wildcard)
             value: (quote (symbol))))
     (match
-        value: (quote (quoted_list (symbol) (symbol)))
+        value: (quote (list (symbol) (symbol)))
         arm: (pattern_arm
             pattern: (pattern_list (symbol) (symbol))
             value: (constant_symbol)))
@@ -84,4 +90,12 @@ Matches
         arm: (pattern_arm
             pattern: (symbol)
             guard: (symbol)
-            value: (number))))
+            value: (number)))
+    (match 
+        value: (symbol)
+        arm: (pattern_arm
+            pattern: (pair (symbol) (pattern_binding name: (symbol)))
+            value: (constant_symbol))
+        arm: (pattern_arm
+            pattern: (pair (symbol) (wildcard))
+            value: (constant_symbol))))

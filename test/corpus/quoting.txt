@@ -8,9 +8,9 @@ Quoting
 ----
 (program
     (quote (symbol))
-    (quote (quoted_list (number)))
+    (quote (list (number)))
     (quote 
-        (quoted_list 
+        (list 
             (symbol) 
-            (quoted_list (symbol) (symbol))))
-    (quote (quoted_list (number))))
+            (list (symbol) (symbol))))
+    (quote (list (number))))
