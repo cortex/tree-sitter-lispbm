@@ -2,15 +2,31 @@
 Quoting
 =======
 'a
+'1
 '(1)
 '(a (b c))
+'(a . b)
+'(a b . c)
 (quote (1))
+(quote (a . b))
+(quote (a . (b . c)))
 ----
 (program
     (quote (symbol))
+    (quote (number))
     (quote (list (number)))
-    (quote 
-        (list 
-            (symbol) 
+    (quote
+        (list
+            (symbol)
             (list (symbol) (symbol))))
-    (quote (list (number))))
+    (quote (list (symbol) (cdr (symbol))))
+    (quote (list (symbol) (symbol) (cdr (symbol))))
+    (quote (list (number)))
+    (quote (list (symbol) (cdr (symbol))))
+    (quote (list
+        (symbol)
+        (cdr
+            (list
+                (symbol)
+                (cdr (symbol))))))
+)

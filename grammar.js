@@ -24,7 +24,6 @@ module.exports = grammar({
     _expression: ($) =>
       choice(
         $._atom,
-        $.pair,
         $.application,
         $.definition,
         $._callable,
@@ -42,17 +41,16 @@ module.exports = grammar({
       ),
 
     _literal_expression: ($) =>
-      choice(
-        $._atom,
-        alias($.literal_pair, $.pair),
-        $.quote,
-        alias($._literal_list, $.list),
+      choice($._atom, $.quote, alias($._literal_list, $.list)),
+    _literal_list: ($) =>
+      seq(
+        "(",
+        repeat($._literal_expression),
+        optional(alias($.literal_cdr, $.cdr)),
+        ")",
       ),
-    _literal_list: ($) => seq("(", repeat($._literal_expression), ")"),
     comment: ($) => token(prec(-1, /;.*/)),
-    pair: ($) => seq("(", $._expression, ".", $._expression, ")"),
-    literal_pair: ($) =>
-      seq("(", $._literal_expression, ".", $._literal_expression, ")"),
+    literal_cdr: ($) => seq(".", $._literal_expression),
     directive: ($) => token(choice("@const-start", "@const-end")),
     _atom: ($) =>
       choice(
@@ -235,7 +233,14 @@ module.exports = grammar({
     quasiquote: ($) => seq("`", $._quasiquoted),
     _quasiquoted: ($) =>
       choice($.quasiquoted_list, $._atom, $.splice, $.splice_list),
-    quasiquoted_list: ($) => seq("(", repeat($._quasiquoted), ")"),
+    quasiquoted_list: ($) =>
+      seq(
+        "(",
+        repeat($._quasiquoted),
+        optional(alias($.quasiquoted_cdr, $.cdr)),
+        ")",
+      ),
+    quasiquoted_cdr: ($) => seq(".", $._quasiquoted),
 
     // Var
     var: ($) =>
@@ -265,11 +270,15 @@ module.exports = grammar({
         ")",
       ),
 
-    _destructure_pattern: ($) =>
-      choice($.symbol, $.destructure_list, alias($.destructure_pair, $.pair)),
-    destructure_list: ($) => seq("(", repeat($._destructure_pattern), ")"),
-    destructure_pair: ($) =>
-      seq("(", $._destructure_pattern, ".", $._destructure_pattern, ")"),
+    _destructure_pattern: ($) => choice($.symbol, $.destructure_list),
+    destructure_list: ($) =>
+      seq(
+        "(",
+        repeat($._destructure_pattern),
+        optional(alias($.destructure_cdr, $.cdr)),
+        ")",
+      ),
+    destructure_cdr: ($) => seq(".", $._destructure_pattern),
 
     // Functions
     _callable: ($) =>
@@ -371,15 +380,10 @@ module.exports = grammar({
         ")",
       ),
     _pattern: ($) =>
-      choice(
-        $.wildcard,
-        $._atom,
-        $.pattern_binding,
-        $.pattern_list,
-        alias($.pattern_pair, $.pair),
-      ),
-    pattern_pair: ($) => seq("(", $._pattern, ".", $._pattern, ")"),
-    pattern_list: ($) => seq("(", repeat($._pattern), ")"),
+      choice($.wildcard, $._atom, $.pattern_binding, $.pattern_list),
+    pattern_list: ($) =>
+      seq("(", repeat($._pattern), optional(alias($.pattern_cdr, $.cdr)), ")"),
+    pattern_cdr: ($) => seq(".", $._pattern),
     pattern_binding: ($) =>
       prec(
         2,

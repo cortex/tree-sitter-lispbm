@@ -9,7 +9,7 @@ Assignments
 (let ((a 1)
       (b 2)) nil)
 (let (((a b) '(1 2))) nil)
-(var (a . b) data)
+(var (a b . c) data)
 ---------
 
 (program
@@ -21,9 +21,9 @@ Assignments
         name: (destructure_list
             (symbol)
             (destructure_list (symbol)))
-        value: 
+        value:
             (quote (list
-                (number) 
+                (number)
                 (list (number)))))
     (let
         bindings: (bindings)
@@ -47,4 +47,6 @@ Assignments
                     (number)
                     (number)))))
         body: (constant_symbol))
-        (var name: (pair (symbol) (symbol)) value: (symbol)))
+    (var
+        name: (destructure_list (symbol) (symbol) (cdr (symbol)))
+        value: (symbol)))

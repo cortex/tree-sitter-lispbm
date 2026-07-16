@@ -2,6 +2,7 @@
 Quasiquotation
 ====================
 `(1 ,(+ 1 1) ,@(list 1 2 3) 3)
+`(a b . c)
 --------------------
 (program
     (quasiquote
@@ -18,4 +19,9 @@ Quasiquotation
                     arg: (number)
                     arg: (number)
                     arg: (number)))
-            (number))))
+            (number)))
+    (quasiquote
+        (quasiquoted_list
+            (symbol)
+            (symbol)
+            (cdr (symbol)))))

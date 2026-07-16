@@ -24,7 +24,10 @@ Matches and pattern matching
 (match result
     ((err . (? error)) false)
     ((ok . _) true))
-    
+
+(match nil
+    ((a b . c) nil))
+
 ----------------------------
 (program
     (match
@@ -91,11 +94,20 @@ Matches and pattern matching
             pattern: (symbol)
             guard: (symbol)
             value: (number)))
-    (match 
+    (match
         value: (symbol)
         arm: (pattern_arm
-            pattern: (pair (symbol) (pattern_binding name: (symbol)))
+            pattern: (pattern_list
+                (symbol)
+                (cdr (pattern_binding name: (symbol))))
             value: (constant_symbol))
         arm: (pattern_arm
-            pattern: (pair (symbol) (wildcard))
+            pattern: (pattern_list
+                (symbol)
+                (cdr (wildcard)))
+            value: (constant_symbol)))
+    (match
+        value: (constant_symbol)
+        arm: (pattern_arm
+            pattern: (pattern_list (symbol) (symbol) (cdr (symbol)))
             value: (constant_symbol))))
