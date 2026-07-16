@@ -232,7 +232,13 @@ module.exports = grammar({
     // Quasiquote
     quasiquote: ($) => seq("`", $._quasiquoted),
     _quasiquoted: ($) =>
-      choice($.quasiquoted_list, $._atom, $.splice, $.splice_list),
+      choice(
+        $.quasiquoted_list,
+        $._atom,
+        $.splice,
+        $.splice_list,
+        alias($.quasiquoted_quote, $.quote),
+      ),
     quasiquoted_list: ($) =>
       seq(
         "(",
@@ -241,6 +247,12 @@ module.exports = grammar({
         ")",
       ),
     quasiquoted_cdr: ($) => seq(".", $._quasiquoted),
+    // A quote node inside a quasiquoted node.
+    quasiquoted_quote: ($) =>
+      choice(
+        seq("'", $._quasiquoted),
+        prec(1, seq("(", field("keyword", "quote"), $._quasiquoted, ")")),
+      ),
 
     // Var
     var: ($) =>

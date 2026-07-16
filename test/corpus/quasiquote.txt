@@ -2,7 +2,10 @@
 Quasiquotation
 ====================
 `(1 ,(+ 1 1) ,@(list 1 2 3) 3)
+`(1 'hi ',var ',@(list 1 2 3))
 `(a b . c)
+`,1
+`',quoted
 --------------------
 (program
     (quasiquote
@@ -22,6 +25,20 @@ Quasiquotation
             (number)))
     (quasiquote
         (quasiquoted_list
+            (number)
+            (quote (symbol))
+            (quote (splice
+                (symbol)))
+            (quote (splice_list
+                (application
+                    function: (symbol)
+                    arg: (number)
+                    arg: (number)
+                    arg: (number))))))
+    (quasiquote
+        (quasiquoted_list
             (symbol)
             (symbol)
-            (cdr (symbol)))))
+            (cdr (symbol))))
+    (quasiquote (splice (number)))
+    (quasiquote (quote (splice (symbol)))))

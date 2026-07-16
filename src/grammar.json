@@ -860,6 +860,15 @@
         {
           "type": "SYMBOL",
           "name": "splice_list"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "quasiquoted_quote"
+          },
+          "named": true,
+          "value": "quote"
         }
       ]
     },
@@ -910,6 +919,53 @@
         {
           "type": "SYMBOL",
           "name": "_quasiquoted"
+        }
+      ]
+    },
+    "quasiquoted_quote": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "'"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_quasiquoted"
+            }
+          ]
+        },
+        {
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "("
+              },
+              {
+                "type": "FIELD",
+                "name": "keyword",
+                "content": {
+                  "type": "STRING",
+                  "value": "quote"
+                }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_quasiquoted"
+              },
+              {
+                "type": "STRING",
+                "value": ")"
+              }
+            ]
+          }
         }
       ]
     },

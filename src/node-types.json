@@ -1250,6 +1250,10 @@
           "named": true
         },
         {
+          "type": "quote",
+          "named": true
+        },
+        {
           "type": "splice",
           "named": true
         },
@@ -1278,6 +1282,10 @@
         },
         {
           "type": "quasiquoted_list",
+          "named": true
+        },
+        {
+          "type": "quote",
           "named": true
         },
         {
@@ -1319,7 +1327,19 @@
           "named": true
         },
         {
+          "type": "quasiquoted_list",
+          "named": true
+        },
+        {
           "type": "quote",
+          "named": true
+        },
+        {
+          "type": "splice",
+          "named": true
+        },
+        {
+          "type": "splice_list",
           "named": true
         }
       ]
