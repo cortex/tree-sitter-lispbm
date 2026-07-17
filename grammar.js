@@ -24,6 +24,7 @@ module.exports = grammar({
     _expression: ($) =>
       choice(
         $._atom,
+        $.empty_list,
         $.application,
         $.definition,
         $._callable,
@@ -61,7 +62,8 @@ module.exports = grammar({
         $.byte_array,
         $.constant_symbol,
       ),
-    constant_symbol: ($) => choice("nil", "true", "false", "t", "()"),
+    constant_symbol: ($) => choice("nil", "true", "false", "t"),
+    empty_list: ($) => seq("(", ")"),
     splice: ($) => seq(",", $._expression),
     splice_list: ($) => seq(",@", $._expression),
     special_form: ($) =>
@@ -101,39 +103,34 @@ module.exports = grammar({
 
     number: ($) => choice($._int, $._float),
     _int: ($) => {
-      const digits = choice(
-        /\d+/,
-        /0x[\da-fA-F]+/,
-      );
+      const digits = choice(/\d+/, /0x[\da-fA-F]+/);
       return seq(
-        choice(
-          digits,
-          seq(
-            field("operator", "-"),
-            token.immediate(digits)
+        choice(digits, seq(field("operator", "-"), token.immediate(digits))),
+        field(
+          "qualifier",
+          optional(
+            choice(
+              $.int_qualifier,
+              alias($.float_qualifier, $.invalid_qualifier),
+            ),
           ),
         ),
-        field("qualifier", optional(choice(
-          $.int_qualifier,
-          alias($.float_qualifier, $.invalid_qualifier)
-        ))),
-      )
+      );
     },
     _float: ($) => {
       const digits = /\d+\.\d+/;
       return seq(
-        choice(
-          digits,
-          seq(
-            field("operator", "-"),
-            token.immediate(digits),
+        choice(digits, seq(field("operator", "-"), token.immediate(digits))),
+        field(
+          "qualifier",
+          optional(
+            choice(
+              $.float_qualifier,
+              alias($.int_qualifier, $.invalid_qualifier),
+            ),
           ),
         ),
-        field("qualifier", optional(choice(
-          $.float_qualifier,
-          alias($.int_qualifier, $.invalid_qualifier),
-        )),
-      ))
+      );
     },
     int_qualifier: ($) =>
       token.immediate(choice("b", "i", "u", "i32", "u32", "i64", "u64")),

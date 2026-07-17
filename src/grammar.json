@@ -31,6 +31,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "empty_list"
+        },
+        {
+          "type": "SYMBOL",
           "name": "application"
         },
         {
@@ -221,10 +225,19 @@
         {
           "type": "STRING",
           "value": "t"
+        }
+      ]
+    },
+    "empty_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
         },
         {
           "type": "STRING",
-          "value": "()"
+          "value": ")"
         }
       ]
     },

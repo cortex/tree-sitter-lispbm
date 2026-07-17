@@ -62,5 +62,5 @@ hello
         (character (escape_sequence)))
     (character (invalid_escape_sequence))
     (character (invalid_escape_sequence))
-    (constant_symbol)
+    (empty_list)
     )

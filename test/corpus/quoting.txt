@@ -10,6 +10,7 @@ Quoting
 (quote (1))
 (quote (a . b))
 (quote (a . (b . c)))
+'()
 ----
 (program
     (quote (symbol))
@@ -29,4 +30,4 @@ Quoting
             (list
                 (symbol)
                 (cdr (symbol))))))
-)
+    (quote (list)))

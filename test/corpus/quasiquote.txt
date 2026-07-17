@@ -6,6 +6,7 @@ Quasiquotation
 `(a b . c)
 `,1
 `',quoted
+`()
 --------------------
 (program
     (quasiquote
@@ -41,4 +42,5 @@ Quasiquotation
             (symbol)
             (cdr (symbol))))
     (quasiquote (splice (number)))
-    (quasiquote (quote (splice (symbol)))))
+    (quasiquote (quote (splice (symbol))))
+    (quasiquote (quasiquoted_list)))

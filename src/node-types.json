@@ -84,6 +84,10 @@
         "named": true
       },
       {
+        "type": "empty_list",
+        "named": true
+      },
+      {
         "type": "let",
         "named": true
       },
@@ -463,6 +467,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "empty_list",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "function",
@@ -1586,10 +1595,6 @@
   },
   {
     "type": "(",
-    "named": false
-  },
-  {
-    "type": "()",
     "named": false
   },
   {
